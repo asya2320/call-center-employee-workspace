@@ -1,11 +1,12 @@
 <div class="form__wrapper">
-    <form class="form">
+    <form class="form" (ngSubmit)="onSubmit()">
         <h1 class="form__heading">Авторизация в системе</h1>
         <div class="form__group">
             <label class="form__label" for="login">Логин:</label>
             <input
                 class="form__input"
                 type="text"
+                [(ngModel)]="login"
                 id="login"
                 name="login"
                 required
@@ -16,6 +17,7 @@
             <input
                 class="form__input"
                 type="password"
+                [(ngModel)]="password"
                 id="password"
                 name="password"
                 required
