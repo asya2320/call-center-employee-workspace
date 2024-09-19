@@ -1,0 +1,44 @@
+@import '../../../variables';
+
+.call-simulator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 100px;
+
+    &__button {
+        background-color: $secondary-color;
+        color: $accent-color;
+        border: none;
+        width: 170px;
+        border-radius: 5px;
+        height: 40px;
+        font-size: 15px;
+        font-weight: 400;
+        padding: 10px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+        font-family: 'IBM Plex Sans', sans-serif;
+
+        &:hover {
+            cursor: pointer;
+            background-color: darken($secondary-color, 10%);
+        }
+
+        &:disabled {
+            cursor: default;
+            background-color: darken($primary-color, 10%);
+        }
+
+        &-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+    }
+
+    &__caption {
+        font-size: 15px;
+    }
+}

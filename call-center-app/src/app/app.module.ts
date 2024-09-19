@@ -3,14 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './modules/auth/auth.module';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './components/auth/auth.component';
-import { CallSimulatorComponent } from './components/call-simulator/call-simulator.component';
-import { CallListComponent } from './components/call-list/call-list.component';
+import { SharedModule } from './modules/shared/shared.module';
+import { CallModule } from './modules/call/call.module';
 
 @NgModule({
-    declarations: [AppComponent, CallSimulatorComponent, CallListComponent],
-    imports: [BrowserModule, AppRoutingModule, AuthModule],
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AuthModule,
+        SharedModule,
+        CallModule,
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })
