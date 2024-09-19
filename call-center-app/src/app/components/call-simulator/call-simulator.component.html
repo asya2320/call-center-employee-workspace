@@ -1,7 +1,21 @@
 <div class="call-simulator">
     <div class="call-simulator__button-wrapper">
-        <button class="call-simulator__button">Начать разговор</button>
-        <button class="call-simulator__button">Закончить разговор</button>
+        <button
+            (click)="startCall()"
+            [disabled]="callService.isRecording"
+            class="call-simulator__button"
+        >
+            Начать разговор
+        </button>
+        <button
+            (click)="endCall()"
+            [disabled]="!callService.isRecording"
+            class="call-simulator__button"
+        >
+            Закончить разговор
+        </button>
     </div>
-    <div class="call-simulator__caption">Таймер: {{ timer }} секунд</div>
+    <div class="call-simulator__caption">
+        {{ callService.getFormattedTime() }}
+    </div>
 </div>
