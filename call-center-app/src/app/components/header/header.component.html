@@ -1,1 +1,44 @@
-<header class="header"></header>
+<header class="header">
+    <nav class="header__navbar">
+        <div class="header__navbar-brand">Колл-центр</div>
+        <div class="header__user-data" *ngIf="authService.login$ | async">
+            <div class="header__user-icon"></div>
+            <div class="header__user-name">
+                {{ authService.login$ | async }}
+            </div>
+        </div>
+
+        <div class="header__navbar-toggle" (click)="toggleMenu()">
+            <div
+                class="header__toggle-icon"
+                [ngClass]="{ 'header__toggle-icon-open': isMenuOpen }"
+            >
+                <span class="header__toggle-line"></span>
+                <span class="header__toggle-line"></span>
+                <span class="header__toggle-line"></span>
+            </div>
+        </div>
+
+        <ul
+            class="header__navbar-nav"
+            [ngClass]="{ 'header__navbar-nav-open': isMenuOpen }"
+        >
+            <li class="header__nav-item">
+                <a
+                    class="header__nav-link"
+                    routerLink="/simulator"
+                    routerLinkActive="active"
+                    >Главная</a
+                >
+            </li>
+            <li class="header__nav-item">
+                <a
+                    class="header__nav-link"
+                    routerLink="/list"
+                    routerLinkActive="active"
+                    >Журнал</a
+                >
+            </li>
+        </ul>
+    </nav>
+</header>
