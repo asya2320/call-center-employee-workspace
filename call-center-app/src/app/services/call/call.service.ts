@@ -31,7 +31,7 @@ export class CallService {
 
     updateCallType(currCall: ICallInfo) {
         const calls = this.callListSubject.value.map((call: ICallInfo) =>
-            call === currCall ? { ...currCall, type: call.type } : currCall,
+            call === currCall ? { ...call, type: currCall.type } : call,
         );
         this.callListSubject.next(calls);
         this.saveCallsToLocalStorage();

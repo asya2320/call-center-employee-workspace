@@ -1,28 +1,62 @@
 <div class="form__wrapper">
-    <form class="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="form">
         <h1 class="form__heading">Авторизация в системе</h1>
         <div class="form__group">
             <label class="form__label" for="login">Логин:</label>
             <input
                 class="form__input"
                 type="text"
-                [(ngModel)]="login"
+                formControlName="login"
                 id="login"
-                name="login"
-                required
+                [required]="true"
             />
+            <div
+                *ngIf="
+                    authForm.get('login')?.errors &&
+                    authForm.get('login')?.touched
+                "
+            >
+                <small
+                    class="error"
+                    *ngIf="authForm.get('login')?.hasError('required')"
+                    >Логин обязателен</small
+                >
+                <small
+                    class="error"
+                    *ngIf="authForm.get('login')?.hasError('minlength')"
+                    >Логин должен содержать как минимум 3 символа</small
+                >
+            </div>
         </div>
         <div class="form__group">
             <label class="form__label" for="password">Пароль:</label>
             <input
                 class="form__input"
                 type="password"
-                [(ngModel)]="password"
+                formControlName="password"
                 id="password"
-                name="password"
-                required
+                [required]="true"
             />
+            <div
+                *ngIf="
+                    authForm.get('password')?.errors &&
+                    authForm.get('password')?.touched
+                "
+            >
+                <small
+                    class="error"
+                    *ngIf="authForm.get('password')?.hasError('required')"
+                    >Пароль обязателен</small
+                >
+                <small
+                    class="error"
+                    *ngIf="authForm.get('password')?.hasError('minlength')"
+                    >Пароль должен содержать как минимум 6 символов</small
+                >
+            </div>
         </div>
-        <button class="form__button" type="submit">Войти</button>
+        <button class="form__button" type="submit" [disabled]="!authForm.valid">
+            Войти
+        </button>
     </form>
 </div>

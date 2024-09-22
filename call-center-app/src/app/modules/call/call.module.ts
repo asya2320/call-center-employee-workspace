@@ -7,11 +7,13 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
 import { FormatSecondsPipe } from '../../pipes/format-seconds/format-seconds.pipe';
+import { CallTypeModalComponent } from '../../components/call-type-modal/call-type-modal.component';
 
 @NgModule({
     declarations: [
         CallListComponent,
         CallSimulatorComponent,
+        CallTypeModalComponent,
         FormatDatePipe,
         FormatSecondsPipe,
     ],
@@ -20,6 +22,7 @@ import { FormatSecondsPipe } from '../../pipes/format-seconds/format-seconds.pip
     exports: [
         CallListComponent,
         CallSimulatorComponent,
+        CallTypeModalComponent,
         FormatDatePipe,
         FormatSecondsPipe,
     ],

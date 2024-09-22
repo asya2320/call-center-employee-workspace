@@ -1,0 +1,23 @@
+<div *ngIf="isOpen" class="modal__overlay">
+    <div class="modal__content">
+        <table class="modal__table">
+            <thead>
+                <tr class="modal__header">
+                    <th class="modal__cell">Код типа</th>
+                    <th class="modal__cell">Описание типа</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let type of callTypes"
+                    (click)="selectType(type)"
+                    class="modal__row"
+                >
+                    <td class="modal__cell">{{ type.code }}</td>
+                    <td class="modal__cell">{{ type.description }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button (click)="close()" class="modal__button">Закрыть</button>
+    </div>
+</div>

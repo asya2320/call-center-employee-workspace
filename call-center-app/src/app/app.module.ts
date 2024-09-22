@@ -5,8 +5,6 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { CallModule } from './modules/call/call.module';
-import { FormatDatePipe } from './pipes/format-date/format-date.pipe';
-import { FormatSecondsPipe } from './pipes/format-seconds/format-seconds.pipe';
 
 @NgModule({
     declarations: [AppComponent],

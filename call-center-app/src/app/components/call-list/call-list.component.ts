@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 })
 export class CallListComponent {
     calls$: Observable<ICallInfo[]>;
+    isModalOpen: boolean = false;
+    selectedCall: ICallInfo;
 
     constructor(
         private callService: CallService,
@@ -23,5 +25,24 @@ export class CallListComponent {
 
     remove(call: ICallInfo) {
         this.callService.deleteCall(call);
+    }
+
+    updateCallType(call: ICallInfo) {
+        this.callService.updateCallType(call);
+    }
+
+    openModal(call: ICallInfo) {
+        this.selectedCall = call;
+        this.isModalOpen = true;
+    }
+
+    onTypeSelected(type: string) {
+        this.selectedCall.type = type;
+        this.updateCallType(this.selectedCall);
+        this.isModalOpen = false;
+    }
+
+    closeModal() {
+        this.isModalOpen = false;
     }
 }

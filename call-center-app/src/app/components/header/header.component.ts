@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -10,9 +11,16 @@ import { AuthService } from '../../services/auth/auth.service';
 export class HeaderComponent {
     public isMenuOpen: boolean = false;
 
-    constructor(public authService: AuthService) {}
+    constructor(
+        public authService: AuthService,
+        private router: Router,
+    ) {}
 
     toggleMenu() {
         this.isMenuOpen = !this.isMenuOpen;
+    }
+
+    closeMenuWithNav() {
+        this.toggleMenu();
     }
 }

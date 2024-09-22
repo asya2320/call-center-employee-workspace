@@ -57,6 +57,15 @@
         padding: 10px 20px;
         font-family: $primary-font;
 
+        &:disabled {
+            background-color: $primary-color;
+
+            &:hover {
+                cursor: default;
+                background-color: $primary-color;
+            }
+        }
+
         &:hover {
             cursor: pointer;
             background-color: darken($secondary-color, 10%);
@@ -74,4 +83,9 @@
             font-size: 20px;
         }
     }
+}
+
+.error {
+    color: $secondary-color;
+    font-style: italic;
 }

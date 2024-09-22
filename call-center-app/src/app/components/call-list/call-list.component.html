@@ -16,8 +16,14 @@
             <td class="table__cell">{{ call.endTime | formatDate }}</td>
             <td class="table__cell">{{ call.duration | formatSeconds }}</td>
             <td class="table__cell table__modal">
-                <input class="table__input" [(ngModel)]="call.type" />
-                <button class="table__button">+</button>
+                <input
+                    class="table__input"
+                    [(ngModel)]="call.type"
+                    (blur)="updateCallType(call)"
+                />
+                <button class="table__button" (click)="openModal(call)">
+                    +
+                </button>
             </td>
             <td class="table__cell">
                 <button class="table__button" (click)="remove(call)">-</button>
@@ -25,3 +31,8 @@
         </tr>
     </tbody>
 </table>
+<app-call-type-modal
+    [isOpen]="isModalOpen"
+    (typeSelected)="onTypeSelected($event)"
+    (closeModal)="closeModal()"
+></app-call-type-modal>
