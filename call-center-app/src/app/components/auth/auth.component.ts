@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth/auth.service';
     templateUrl: './auth.component.html',
     styleUrl: './auth.component.scss',
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
     login: string = '';
     password: string = '';
 
@@ -15,6 +15,12 @@ export class AuthComponent {
         private authService: AuthService,
         private router: Router,
     ) {}
+
+    ngOnInit(): void {
+        if (localStorage.getItem('password'))
+            localStorage.removeItem('password');
+        if (localStorage.getItem('login')) localStorage.removeItem('login');
+    }
 
     onSubmit() {
         this.authService.register(this.login, this.password);

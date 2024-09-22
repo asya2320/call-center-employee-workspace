@@ -8,7 +8,11 @@
             </div>
         </div>
 
-        <div class="header__navbar-toggle" (click)="toggleMenu()">
+        <div
+            class="header__navbar-toggle"
+            (click)="toggleMenu()"
+            *ngIf="authService.login$ | async"
+        >
             <div
                 class="header__toggle-icon"
                 [ngClass]="{ 'header__toggle-icon-open': isMenuOpen }"
