@@ -2,20 +2,20 @@
     <div class="call-simulator__button-wrapper">
         <button
             (click)="startCall()"
-            [disabled]="callService.isRecording"
+            [disabled]="audioService.isRecording"
             class="call-simulator__button"
         >
             Начать разговор
         </button>
         <button
             (click)="endCall()"
-            [disabled]="!callService.isRecording"
+            [disabled]="!audioService.isRecording"
             class="call-simulator__button"
         >
             Закончить разговор
         </button>
     </div>
     <div class="call-simulator__caption">
-        {{ callService.getFormattedTime() }}
+        {{ audioService.getFormattedTime() }}
     </div>
 </div>

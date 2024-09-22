@@ -1,0 +1,101 @@
+@import '../../../variables';
+
+.table {
+    width: 100%;
+    margin: 20px;
+    border-collapse: collapse;
+    font-size: 15px;
+
+    &__head {
+        background-color: $background-color;
+    }
+
+    &__row {
+        border-bottom: 1px solid $primary-color;
+    }
+
+    &__cell {
+        padding: 10px;
+        text-align: center;
+
+        &-header {
+            text-align: left;
+            font-weight: bold;
+            color: $text-color;
+        }
+    }
+
+    &__body {
+        background-color: $accent-color;
+    }
+
+    &__input {
+        padding: 5px;
+        border: 1px solid $primary-color;
+        border-radius: 4px;
+        width: 80%;
+        height: 30px;
+    }
+
+    &__button {
+        border: none;
+        height: 30px;
+        width: 30px;
+        font-size: 25px;
+        border-radius: 6px;
+        background-color: #ca1110;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($secondary-color, 20%);
+        }
+    }
+
+    &__modal {
+        display: flex;
+        align-items: center;
+
+        .table__button {
+            position: absolute;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .table {
+        margin: 0px;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8px;
+        word-break: break-word;
+
+        &__cell {
+            padding: 5px;
+            min-width: 50px;
+        }
+
+        &__input {
+            height: 15px;
+        }
+
+        &__button {
+            font-size: 10px;
+            height: 15px;
+            width: 15px;
+
+            &:hover {
+                background-color: darken($secondary-color, 20%);
+            }
+        }
+
+        &__modal {
+            display: flex;
+            align-items: center;
+
+            .table__button {
+                position: absolute;
+            }
+        }
+    }
+}

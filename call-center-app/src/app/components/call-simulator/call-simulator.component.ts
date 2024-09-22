@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CallService } from '../../services/call/call.service';
+import { AudioService } from '../../services/audio/audio.service';
 
 @Component({
     selector: 'app-call-simulator',
@@ -7,13 +7,13 @@ import { CallService } from '../../services/call/call.service';
     styleUrl: './call-simulator.component.scss',
 })
 export class CallSimulatorComponent {
-    constructor(public callService: CallService) {}
+    constructor(public audioService: AudioService) {}
 
     startCall() {
-        this.callService.startCall();
+        this.audioService.startCall();
     }
 
     async endCall() {
-        await this.callService.endCall();
+        await this.audioService.endCall();
     }
 }

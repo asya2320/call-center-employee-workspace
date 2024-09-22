@@ -1,101 +1,56 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { ICallInfo } from '../../models/call.model';
+import { AudioService } from '../audio/audio.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CallService {
-    private mediaRecorder: MediaRecorder;
-    private audioChunks: Blob[] = [];
-    private audioUrl: string;
-    private timerInterval: any;
-    public timer: number = 0;
-    public isRecording: boolean = false;
+    private callListSubject = new BehaviorSubject<ICallInfo[]>([]);
+    callList$ = this.callListSubject.asObservable();
 
-    constructor() {}
-
-    startCall(): void {
-        this.isRecording = true;
-        this.timer = 0;
-        this.startTimer();
-        this.startRecording();
+    constructor() {
+        this.loadCallsFromLocalStorage();
     }
 
-    async endCall(): Promise<void> {
-        this.isRecording = false;
-        this.stopTimer();
-        this.stopRecording();
-        await this.waitForAudioUrl();
-        this.playAudio();
+    addCall(call: ICallInfo) {
+        const calls = this.callListSubject.value;
+        calls.push(call);
+        this.callListSubject.next(calls);
+        this.saveCallsToLocalStorage();
     }
 
-    getFormattedTime(): string {
-        const minutes = Math.floor(this.timer / 60);
-        const seconds = this.timer % 60;
-        return `${this.twoNumFormat(minutes)}:${this.twoNumFormat(seconds)}`;
+    deleteCall(currCall: ICallInfo) {
+        const calls = this.callListSubject.value.filter(
+            (call: ICallInfo) => currCall !== call,
+        );
+        this.callListSubject.next(calls);
+        this.saveCallsToLocalStorage();
     }
 
-    private twoNumFormat(num: number): string {
-        return num.toString().padStart(2, '0');
+    updateCallType(currCall: ICallInfo) {
+        const calls = this.callListSubject.value.map((call: ICallInfo) =>
+            call === currCall ? { ...currCall, type: call.type } : currCall,
+        );
+        this.callListSubject.next(calls);
+        this.saveCallsToLocalStorage();
     }
 
-    private startTimer(): void {
-        this.timerInterval = setInterval(() => {
-            this.timer += 1;
-        }, 1000);
+    getCalls() {
+        return this.callListSubject.value;
     }
 
-    private stopTimer(): void {
-        clearInterval(this.timerInterval);
+    private saveCallsToLocalStorage() {
+        localStorage.setItem(
+            'callList',
+            JSON.stringify(this.callListSubject.value),
+        );
     }
 
-    private async startRecording(): Promise<void> {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: true,
-            });
-            this.mediaRecorder = new MediaRecorder(stream);
-            this.mediaRecorder.ondataavailable = (event) => {
-                this.audioChunks.push(event.data);
-            };
-            this.mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(this.audioChunks, {
-                    type: 'audio/wav',
-                });
-                this.audioUrl = URL.createObjectURL(audioBlob);
-                this.audioChunks = [];
-            };
-            this.mediaRecorder.start();
-        } catch (error) {
-            alert('Ошибка в доступе к микрофону');
-        }
-    }
-
-    private stopRecording(): void {
-        this.mediaRecorder.stop();
-        this.audioUrl = '';
-    }
-
-    private waitForAudioUrl(): Promise<void> {
-        return new Promise((resolve) => {
-            const checkAudioUrl = () => {
-                if (this.audioUrl) {
-                    resolve();
-                } else {
-                    setTimeout(checkAudioUrl, 100);
-                }
-            };
-            checkAudioUrl();
-        });
-    }
-
-    private playAudio(): void {
-        if (this.audioUrl) {
-            const audio = new Audio(this.audioUrl);
-            audio.play().catch((error) => {
-                alert('Ошибка воспроизведения файла');
-            });
-        } else {
-            alert('Доступных для произведения файлов нету');
-        }
+    private loadCallsFromLocalStorage() {
+        const calls =
+            JSON.parse(String(localStorage.getItem('callList'))) || [];
+        this.callListSubject.next(calls);
     }
 }
