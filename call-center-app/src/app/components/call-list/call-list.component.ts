@@ -14,10 +14,12 @@ export class CallListComponent {
     isModalOpen: boolean = false;
     selectedCall: ICallInfo;
 
-    constructor(
-        private callService: CallService,
-        private datePipe: DatePipe,
-    ) {}
+    sortColumn: keyof ICallInfo = 'startTime';
+    sortOrder: 'asc' | 'desc' = 'asc';
+
+    validCallTypes = ['A', 'B', 'C', 'D'];
+
+    constructor(private callService: CallService) {}
 
     ngOnInit() {
         this.calls$ = this.callService.callList$;
@@ -28,7 +30,14 @@ export class CallListComponent {
     }
 
     updateCallType(call: ICallInfo) {
-        this.callService.updateCallType(call);
+        const callType = call.type?.toUpperCase();
+        if (callType && this.validCallTypes.includes(callType)) {
+            call.type = callType;
+            this.callService.updateCallType(call);
+        } else {
+            alert('Неверный тип звонка. Допустимые значения: A, B, C, D.');
+            call.type = '';
+        }
     }
 
     openModal(call: ICallInfo) {
@@ -44,5 +53,14 @@ export class CallListComponent {
 
     closeModal() {
         this.isModalOpen = false;
+    }
+
+    setSort(column: keyof ICallInfo) {
+        if (this.sortColumn === column) {
+            this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+            this.sortColumn = column;
+            this.sortOrder = 'asc';
+        }
     }
 }

@@ -1,10 +1,10 @@
 @import '../../../variables';
 
 .table {
-    width: 100%;
     margin: 20px;
     border-collapse: collapse;
     font-size: 15px;
+    box-shadow: 0px 5px 5px rgba(1, 1, 1, 0.2);
 
     &__head {
         background-color: $background-color;
@@ -12,7 +12,7 @@
         display: block;
         text-align: center;
 
-        & tr{
+        & tr {
             display: flex;
             justify-content: space-between;
         }
@@ -25,20 +25,28 @@
     &__cell {
         padding: 10px;
         text-align: center;
+        width: 120px;
+        display: block;
 
         &-header {
-            text-align: left;
+            text-align: center;
             font-weight: bold;
             color: $text-color;
+            word-break: word;
+            cursor: pointer;
         }
     }
 
     &__body {
         background-color: $accent-color;
         overflow-y: auto;
-        width: 100%;
         display: block;
-        max-height: 100px;
+        max-height: 50vh;
+
+        & tr {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 
     &__input {
@@ -88,7 +96,7 @@
 
         &__cell {
             padding: 5px;
-            min-width: 50px;
+            width: 50px;
         }
 
         &__input {

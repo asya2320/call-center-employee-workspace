@@ -1,6 +1,10 @@
 <header class="header">
     <nav class="header__navbar">
-        <div class="header__navbar-brand">Колл-центр</div>
+        <div class="header__navbar-wrapper">
+            <img src="../../../assets/Logo.svg" alt="logo" />
+            <div class="header__navbar-brand">Колл-центр</div>
+        </div>
+
         <div class="header__user-data" *ngIf="authService.login$ | async">
             <div class="header__user-icon"></div>
             <div class="header__user-name">

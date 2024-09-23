@@ -3,8 +3,9 @@
 .footer {
     height: 130px;
     background-color: $footer-color;
-    padding: 20px 0;
+    padding: 10px 0;
     text-align: center;
+    box-shadow: 0px -10px 10px rgba(1, 1, 1, 0.1);
 
     &__content {
         display: flex;
@@ -48,6 +49,8 @@
     &__copyright {
         color: $primary-color;
         font-size: 12px;
+        position: absolute;
+        bottom: 5px;
     }
 }
 
@@ -59,6 +62,13 @@
 
         &__copyright {
             font-size: 9px;
+        }
+
+        &__social {
+            svg {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
 }

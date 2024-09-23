@@ -9,6 +9,7 @@ import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
 import { FormatSecondsPipe } from '../../pipes/format-seconds/format-seconds.pipe';
 import { CallTypeModalComponent } from '../../components/call-type-modal/call-type-modal.component';
 import { SecondsToMMSSPipe } from '../../pipes/seconds-to-mmss/seconds-to-mmss.pipe';
+import { SortTablePipe } from '../../pipes/sort-table/sort-table.pipe';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { SecondsToMMSSPipe } from '../../pipes/seconds-to-mmss/seconds-to-mmss.p
         FormatDatePipe,
         FormatSecondsPipe,
         SecondsToMMSSPipe,
+        SortTablePipe,
     ],
     imports: [CommonModule, SharedModule, FormsModule],
     providers: [CallService, DatePipe],
@@ -28,6 +30,7 @@ import { SecondsToMMSSPipe } from '../../pipes/seconds-to-mmss/seconds-to-mmss.p
         FormatDatePipe,
         FormatSecondsPipe,
         SecondsToMMSSPipe,
+        SortTablePipe,
     ],
 })
 export class CallModule {}
