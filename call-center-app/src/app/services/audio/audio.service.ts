@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CallService } from '../call/call.service';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -9,14 +10,20 @@ export class AudioService {
     private audioChunks: Blob[] = [];
     private audioUrl: string;
     private timerInterval: any;
-    public timer: number = 0;
+    public timer$: Observable<number>;
     public isRecording: boolean = false;
 
-    constructor(private callService: CallService) {}
+    private timerSubject: BehaviorSubject<number> = new BehaviorSubject<number>(
+        0,
+    );
+
+    constructor(private callService: CallService) {
+        this.timer$ = this.timerSubject.asObservable();
+    }
 
     startCall(): void {
         this.isRecording = true;
-        this.timer = 0;
+        this.timerSubject.next(0);
         this.startTimer();
         this.startRecording();
     }
@@ -28,9 +35,11 @@ export class AudioService {
 
         this.callService.addCall({
             login: String(localStorage.getItem('login')),
-            startTime: new Date(Date.now() - this.timer * 1000).toISOString(),
+            startTime: new Date(
+                Date.now() - this.timerSubject.getValue() * 1000,
+            ).toISOString(),
             endTime: new Date().toISOString(),
-            duration: String(this.timer),
+            duration: String(this.timerSubject.getValue()),
             type: '',
         });
 
@@ -38,24 +47,16 @@ export class AudioService {
         this.playAudio();
     }
 
-    getFormattedTime(): string {
-        const minutes = Math.floor(this.timer / 60);
-        const seconds = this.timer % 60;
-        return `${this.twoNumFormat(minutes)}:${this.twoNumFormat(seconds)}`;
-    }
-
-    private twoNumFormat(num: number): string {
-        return num.toString().padStart(2, '0');
-    }
-
     private startTimer(): void {
-        this.timerInterval = setInterval(() => {
-            this.timer += 1;
-        }, 1000);
+        this.timerInterval = timer(0, 1000).subscribe(() => {
+            this.timerSubject.next(this.timerSubject.value + 1);
+        });
     }
 
     private stopTimer(): void {
-        clearInterval(this.timerInterval);
+        if (this.timerInterval) {
+            this.timerInterval.unsubscribe();
+        }
     }
 
     private async startRecording(): Promise<void> {

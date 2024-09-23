@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AudioService } from '../../services/audio/audio.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-call-simulator',

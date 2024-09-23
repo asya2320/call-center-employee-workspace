@@ -11,10 +11,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
     public isMenuOpen: boolean = false;
 
-    constructor(
-        public authService: AuthService,
-        private router: Router,
-    ) {}
+    constructor(public authService: AuthService) {}
 
     toggleMenu() {
         this.isMenuOpen = !this.isMenuOpen;

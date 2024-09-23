@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
 import { FormatSecondsPipe } from '../../pipes/format-seconds/format-seconds.pipe';
 import { CallTypeModalComponent } from '../../components/call-type-modal/call-type-modal.component';
+import { SecondsToMMSSPipe } from '../../pipes/seconds-to-mmss/seconds-to-mmss.pipe';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { CallTypeModalComponent } from '../../components/call-type-modal/call-ty
         CallTypeModalComponent,
         FormatDatePipe,
         FormatSecondsPipe,
+        SecondsToMMSSPipe,
     ],
     imports: [CommonModule, SharedModule, FormsModule],
     providers: [CallService, DatePipe],
@@ -25,6 +27,7 @@ import { CallTypeModalComponent } from '../../components/call-type-modal/call-ty
         CallTypeModalComponent,
         FormatDatePipe,
         FormatSecondsPipe,
+        SecondsToMMSSPipe,
     ],
 })
 export class CallModule {}

@@ -16,6 +16,6 @@
         </button>
     </div>
     <div class="call-simulator__caption">
-        {{ audioService.getFormattedTime() }}
+        {{ audioService.timer$ | async | secondsToMMSS }}
     </div>
 </div>

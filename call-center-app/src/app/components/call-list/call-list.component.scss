@@ -8,6 +8,14 @@
 
     &__head {
         background-color: $background-color;
+        width: 100%;
+        display: block;
+        text-align: center;
+
+        & tr{
+            display: flex;
+            justify-content: space-between;
+        }
     }
 
     &__row {
@@ -27,6 +35,10 @@
 
     &__body {
         background-color: $accent-color;
+        overflow-y: auto;
+        width: 100%;
+        display: block;
+        max-height: 100px;
     }
 
     &__input {
