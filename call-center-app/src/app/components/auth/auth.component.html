@@ -10,22 +10,24 @@
                 id="login"
                 [required]="true"
             />
-            <div
-                *ngIf="
-                    authForm.get('login')?.errors &&
-                    authForm.get('login')?.touched
-                "
-            >
-                <small
-                    class="error"
-                    *ngIf="authForm.get('login')?.hasError('required')"
-                    >Логин обязателен</small
+            <div class="error-container">
+                <div
+                    *ngIf="
+                        authForm.get('login')?.errors &&
+                        authForm.get('login')?.touched
+                    "
                 >
-                <small
-                    class="error"
-                    *ngIf="authForm.get('login')?.hasError('minlength')"
-                    >Логин должен содержать как минимум 3 символа</small
-                >
+                    <small
+                        class="error"
+                        *ngIf="authForm.get('login')?.hasError('required')"
+                        >Логин обязателен</small
+                    >
+                    <small
+                        class="error"
+                        *ngIf="authForm.get('login')?.hasError('minlength')"
+                        >Минимум 3 символа</small
+                    >
+                </div>
             </div>
         </div>
         <div class="form__group">
@@ -37,22 +39,24 @@
                 id="password"
                 [required]="true"
             />
-            <div
-                *ngIf="
-                    authForm.get('password')?.errors &&
-                    authForm.get('password')?.touched
-                "
-            >
-                <small
-                    class="error"
-                    *ngIf="authForm.get('password')?.hasError('required')"
-                    >Пароль обязателен</small
+            <div class="error-container">
+                <div
+                    *ngIf="
+                        authForm.get('password')?.errors &&
+                        authForm.get('password')?.touched
+                    "
                 >
-                <small
-                    class="error"
-                    *ngIf="authForm.get('password')?.hasError('minlength')"
-                    >Пароль должен содержать как минимум 6 символов</small
-                >
+                    <small
+                        class="error"
+                        *ngIf="authForm.get('password')?.hasError('required')"
+                        >Пароль обязателен</small
+                    >
+                    <small
+                        class="error"
+                        *ngIf="authForm.get('password')?.hasError('minlength')"
+                        >Минимум 6 символов</small
+                    >
+                </div>
             </div>
         </div>
         <button class="form__button" type="submit" [disabled]="!authForm.valid">

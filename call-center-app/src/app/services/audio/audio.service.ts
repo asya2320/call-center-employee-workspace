@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
 import { CallService } from '../call/call.service';
-import { Observable, BehaviorSubject, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -9,9 +9,10 @@ export class AudioService {
     private mediaRecorder: MediaRecorder;
     private audioChunks: Blob[] = [];
     private audioUrl: string;
-    private timerInterval: any;
+    private timerInterval: Subscription;
     public timer$: Observable<number>;
     public isRecording: boolean = false;
+    public isPlaying: boolean = false;
 
     private timerSubject: BehaviorSubject<number> = new BehaviorSubject<number>(
         0,
@@ -23,7 +24,7 @@ export class AudioService {
 
     startCall(): void {
         this.isRecording = true;
-        this.timerSubject.next(0);
+
         this.startTimer();
         this.startRecording();
     }
@@ -45,6 +46,7 @@ export class AudioService {
 
         await this.waitForAudioUrl();
         this.playAudio();
+        this.timerSubject.next(0);
     }
 
     private startTimer(): void {
@@ -101,9 +103,14 @@ export class AudioService {
 
     private playAudio(): void {
         if (this.audioUrl) {
+            this.isPlaying = true;
             const audio = new Audio(this.audioUrl);
+            audio.addEventListener('ended', () => {
+                this.isPlaying = false;
+            });
             audio.play().catch((error) => {
                 alert('Ошибка воспроизведения файла');
+                this.isPlaying = false;
             });
         } else {
             alert('Доступных для произведения файлов нету');

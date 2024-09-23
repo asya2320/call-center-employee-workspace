@@ -2,7 +2,7 @@
     <div class="call-simulator__button-wrapper">
         <button
             (click)="startCall()"
-            [disabled]="audioService.isRecording"
+            [disabled]="audioService.isRecording || audioService.isPlaying"
             class="call-simulator__button"
         >
             Начать разговор
